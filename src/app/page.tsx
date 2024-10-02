@@ -5,8 +5,8 @@ const App = () => {
   return (
     <div className={styles.page}>
       <div>
-        <h1>Bienvenido a la Aplicación</h1>
-        <Link href="/login">Login</Link>
+        <h1>Challenge Eldar Aplication</h1>
+        <Link className='link-login' href="/login">Login</Link>
     </div>
     </div>
   );
