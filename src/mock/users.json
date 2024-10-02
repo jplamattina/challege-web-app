@@ -2,7 +2,7 @@
     "users": [
       {
         "name": "ariel",
-        "password": "asdasd",
+        "password": "12345678",
         "email": "ariel@example.com",
         "role": "admin"
       },
@@ -16,7 +16,7 @@
         "name": "juan",
         "password": "mypassword",
         "email": "juan@example.com",
-        "role": "admin"
+        "role": "user"
       },
       {
         "name": "lucia",
