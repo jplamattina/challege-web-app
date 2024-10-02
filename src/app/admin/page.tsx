@@ -8,7 +8,6 @@ import { RootState } from '../redux/store';
 const AdminPage = () => {
   const user = useSelector((state: RootState) => state.auth.userRole);
   const router = useRouter();
-  console.log('user::>?', user);
 
   useEffect(() => {
     if (user !== 'admin') {

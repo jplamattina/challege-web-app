@@ -1,21 +1,22 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Button, TextField, Container, Typography, Box, Link } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../app/redux/slices/userSlice'
 import { login } from '../app/redux/slices/authSlice'
-import axios from 'axios'
+// import axios from 'axios'
 import { toast, ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
 import { useRouter } from 'next/navigation'
+import mockedUser from './../mock/users.json'
 
 interface User {
-    id: number
-    name: string
-    email: string
-    role: 'admin' | 'user'
+    name: string;
+    password: string;
+    email: string;
+    role: string;
   }
 
 const Login = () => {
@@ -23,58 +24,43 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
   const [singIn , setSingIn] = useState('login')
-  const [usersWithRoles, setUsersWithRoles] = useState<User[]>([])
+  const [usersWithRoles, setUsersWithRoles] = useState<User[]>(mockedUser.users)
   const router = useRouter()
 
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/users')
-        const users = response.data.map((user: User, index: number) => ({
-          ...user,
-          role: index === 0 ? 'admin' : 'user',
-        }))
-        setUsersWithRoles(users)
-      } catch (error) {
-        console.error('Error fetching users:', error)
-      }
-    }
-    fetchUsers()
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (password.length < 8) {
-      toast.error("La contraseña debe tener al menos 8 caracteres", { position: "top-left" });
-      return; 
-    }
-    console.log('email', email)
     const existingUser = usersWithRoles.some((user) => user.email === email)
-    console.log('existingUser', existingUser)
-    console.log('first', singIn)
     const userSigned = usersWithRoles.find(user => user.email === email)
-    console.log('usersWithRoles', usersWithRoles)
     if(singIn === 'login') {
+      if(userSigned?.password === password) {
+          toast.success(`${userSigned?.name} Hola de nuevo 👋`, { position: "top-left" })
+          dispatch(login(userSigned?.role));
+          userSigned?.role === 'admin' ? router.push('/admin') : router.push('/user')
+      } else {
+        toast.error(`password o email incorrectos`, { position: "top-left" })
+      }
       if (!existingUser) {
         toast.error(`${email} no existe, por favor registrate`, { position: "top-left" })
-      } else {
-        dispatch(login(userSigned?.role));
-        userSigned?.role === 'admin' ? router.push('/admin') : router.push('/user')
       }
     } else {
+      if (password.length < 8) {
+        toast.error("La contraseña debe tener al menos 8 caracteres", { position: "top-left" });
+        return; 
+      }
         if(existingUser) {
             toast.error(`${email} ya existe`, {
                 position: "top-left"
             })
         } else {
             const newUser: User = {
-                id: usersWithRoles.length + 1,
                 name: name,
+                password: password,
                 email,
                 role: 'user',
               }
+              usersWithRoles.push(newUser)
               setUsersWithRoles([...usersWithRoles, newUser])
               dispatch(setUser({ email: newUser.email, role: newUser.role }))
               toast.success(`${name} bienvenido`, {

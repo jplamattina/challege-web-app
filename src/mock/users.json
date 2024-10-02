@@ -1,0 +1,34 @@
+{
+    "users": [
+      {
+        "name": "ariel",
+        "password": "asdasd",
+        "email": "ariel@example.com",
+        "role": "admin"
+      },
+      {
+        "name": "maria",
+        "password": "password123",
+        "email": "maria@example.com",
+        "role": "user"
+      },
+      {
+        "name": "juan",
+        "password": "mypassword",
+        "email": "juan@example.com",
+        "role": "admin"
+      },
+      {
+        "name": "lucia",
+        "password": "lucia2023",
+        "email": "lucia@example.com",
+        "role": "user"
+      },
+      {
+        "name": "carlos",
+        "password": "securepass",
+        "email": "carlos@example.com",
+        "role": "admin"
+      }
+    ]
+  }

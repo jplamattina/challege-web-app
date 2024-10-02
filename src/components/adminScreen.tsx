@@ -103,7 +103,7 @@ const Admin: React.FC = () => {
       <List>
         {paginatedItems.map((item, index) => (
           <ListItem key={`${item.id}-${index}`} secondaryAction>
-            <ListItemText primary={item.title} />
+            <ListItemText primary={item.title} sx={{ color: 'black' }} />
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <IconButton edge="end" onClick={() => handleEdit(item)}>
                 <EditIcon />
