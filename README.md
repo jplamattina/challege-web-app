@@ -11,11 +11,14 @@ Features
 ## Admin and User Test Accounts
 
     Admin:
-        Email: Sincere@april.biz
-        Password: 123456789
+        Email: ariel@example.com
+        Password: 12345678
     User:
-        Email: Shanna@melissa.tv
-        Password: 123456789
+        Email: maria@example.com
+        Password: password123
+
+    or
+    Use one from the user.json mock
 
 ## Installation
 

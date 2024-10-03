@@ -13,10 +13,10 @@ import { useRouter } from 'next/navigation'
 import mockedUser from './../mock/users.json'
 
 interface User {
-    name: string;
-    password: string;
-    email: string;
-    role: string;
+    name: string
+    password: string
+    email: string
+    role: string
   }
 
 const Login = () => {
@@ -35,8 +35,8 @@ const Login = () => {
     const userSigned = usersWithRoles.find(user => user.email === email)
     if(singIn === 'login') {
       if(userSigned?.password === password) {
-          toast.success(`${userSigned?.name} Hola de nuevo 👋`, { position: "top-left" })
-          dispatch(login(userSigned?.role));
+          toast.success(`Hola de nuevo ${userSigned?.name}👋`, { position: "top-left" })
+          dispatch(login(userSigned?.role))
           userSigned?.role === 'admin' ? router.push('/admin') : router.push('/user')
       } else {
         toast.error(`password o email incorrectos`, { position: "top-left" })
@@ -46,8 +46,8 @@ const Login = () => {
       }
     } else {
       if (password.length < 8) {
-        toast.error("La contraseña debe tener al menos 8 caracteres", { position: "top-left" });
-        return; 
+        toast.error("La contraseña debe tener al menos 8 caracteres", { position: "top-left" })
+        return 
       }
         if(existingUser) {
             toast.error(`${email} ya existe`, {

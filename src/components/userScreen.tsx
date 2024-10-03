@@ -1,33 +1,33 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Container, Typography, List, ListItem, ListItemText, Box, Pagination } from '@mui/material';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import { Container, Typography, List, ListItem, ListItemText, Box, Pagination } from '@mui/material'
 
 interface Data {
-  id: number;
-  title: string;
+  id: number
+  title: string
 }
 
 const User: React.FC = () => {
-  const [data, setData] = useState<Data[]>([]);
-  const [page, setPage] = useState(1);
-  const itemsPerPage = 10;
+  const [data, setData] = useState<Data[]>([])
+  const [page, setPage] = useState(1)
+  const itemsPerPage = 10
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-      setData(response.data);
-    };
-    fetchData();
-  }, []);
+      const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+      setData(response.data)
+    }
+    fetchData()
+  }, [])
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
-  };
+    setPage(value)
+  }
 
-  const startIndex = (page - 1) * itemsPerPage;
-  const paginatedData = data.slice(startIndex, startIndex + itemsPerPage);
+  const startIndex = (page - 1) * itemsPerPage
+  const paginatedData = data.slice(startIndex, startIndex + itemsPerPage)
 
   return (
     <Container>
@@ -51,7 +51,7 @@ const User: React.FC = () => {
         />
       </Box>
     </Container>
-  );
-};
+  )
+}
 
-export default User;
+export default User

@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import {
   Container,
   TextField,
@@ -13,77 +13,76 @@ import {
   Typography,
   Box,
   Pagination,
-} from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+} from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 interface Idata {
-    id: number;
-    data: string;
-    title: string;
-    item: string;
+    id: number
+    data: string
+    title: string
+    item: string
 }
 interface item {
-    id: number;
-    item: string;
-    title: string;
+    id: number
+    item: string
+    title: string
 }
 
 const Admin: React.FC = () => {
-  const [data, setData] = useState<Idata[]>([]);
-  const [newItem, setNewItem] = useState<string>('');
-  const [editingItem, setEditingItem] = useState<{ id: number; title: string } | null>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 10;
+  const [data, setData] = useState<Idata[]>([])
+  const [newItem, setNewItem] = useState<string>('')
+  const [editingItem, setEditingItem] = useState<{ id: number; title: string } | null>(null)
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const itemsPerPage = 10
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-      setData(response.data);
-    };
-    fetchData();
-  }, []);
+      const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+      setData(response.data)
+    }
+    fetchData()
+  }, [])
 
   const handleCreate = async () => {
     const response = await axios.post('https://jsonplaceholder.typicode.com/posts', {
       title: newItem,
-      body: 'Sample body',
       userId: 1,
-    });
-    setData([response.data, ...data]);
-    setNewItem('');
-  };
+    })
+    setData([response.data, ...data])
+    setNewItem('')
+  }
 
   const handleEdit = (item: item) => {
-    setEditingItem(item);
-    setNewItem(item.title);
-  };
+    setEditingItem(item)
+    setNewItem(item.title)
+  }
 
   const handleUpdate = async () => {
     if (editingItem) {
       const response = await axios.put(`https://jsonplaceholder.typicode.com/posts/${editingItem.id}`, {
         title: newItem,
-      });
-      const updatedData = data.map(item => (item.id === editingItem.id ? response.data : item));
-      setData(updatedData);
-      setEditingItem(null);
-      setNewItem('');
+      })
+      const updatedData = data.map(item => (item.id === editingItem.id ? response.data : item))
+      setData(updatedData)
+      setEditingItem(null)
+      setNewItem('')
     }
-  };
+  }
 
   const handleDelete = async (id: number) => {
-    await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
-    setData(data.filter(item => item.id !== id));
-  };
+    await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+    setData(data.filter(item => item.id !== id))
+  }
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setCurrentPage(value);
-  };
+    setCurrentPage(value)
+  }
 
   const paginatedItems = data.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
-  );
+  )
 
   return (
     <Container>
@@ -91,7 +90,7 @@ const Admin: React.FC = () => {
         Admin Panel
       </Typography>
       <TextField
-        label="Enter item title"
+        label="El Arte de Escribir!"
         value={newItem}
         onChange={e => setNewItem(e.target.value)}
         fullWidth
@@ -122,7 +121,7 @@ const Admin: React.FC = () => {
         sx={{ mt: 2 }}
       />
     </Container>
-  );
-};
+  )
+}
 
-export default Admin;
+export default Admin
